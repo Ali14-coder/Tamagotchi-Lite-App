@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentRead">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <!--     <pl.droidsonroids.gif.GifImageView
+           android:id="@+id/gifRead"
+           android:layout_width=”match_parent”
+       android:layout_height=”match_parent”
+       android:src="@drawable/penguinreading"
+       android:background="@drawable/penguinreading"/> -->
 
+    <ImageView
+           android:id="@+id/imageView3"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:src="@drawable/penguinreading" />
 </FrameLayout>
