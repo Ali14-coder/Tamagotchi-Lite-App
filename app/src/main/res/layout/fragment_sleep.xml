@@ -6,9 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".FragmentSleep">
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifSleep"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/penguinsleeping" />
+        android:src="@drawable/penguinsleeping"/>
+
+  <!--  <ImageView
+        android:id="@+id/gifSleep"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/penguinsleeping" />-->
 </FrameLayout>

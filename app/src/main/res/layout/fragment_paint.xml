@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".FragmentPaint">
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifPaint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/penguinpainting" />

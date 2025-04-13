@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".FragmentEat">
 
-    <ImageView
-        android:id="@+id/imageView5"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifEat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/penguineating" />

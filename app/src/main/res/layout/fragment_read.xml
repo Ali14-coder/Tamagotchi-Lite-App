@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".FragmentRead">
 
-    <!--     <pl.droidsonroids.gif.GifImageView
+        <pl.droidsonroids.gif.GifImageView
            android:id="@+id/gifRead"
-           android:layout_width=”match_parent”
-       android:layout_height=”match_parent”
-       android:src="@drawable/penguinreading"
-       android:background="@drawable/penguinreading"/> -->
+           android:layout_width= "match_parent"
+       android:layout_height="match_parent"
+       android:src="@drawable/penguinreading"/>
 
-    <ImageView
-           android:id="@+id/imageView3"
+  <!--  <ImageView
+           android:id="@+id/gifRead"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           android:src="@drawable/penguinreading" />
+           android:src="@drawable/penguinreading" /> -->
 </FrameLayout>
