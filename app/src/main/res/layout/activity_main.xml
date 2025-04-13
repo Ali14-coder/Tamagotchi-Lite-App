@@ -18,5 +18,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="160dp"
+        android:id="@+id/statusBars"
+        android:layout_width="411dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

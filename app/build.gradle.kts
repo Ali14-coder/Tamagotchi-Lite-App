@@ -52,4 +52,6 @@ dependencies {
     implementation(libs.gif.drawable)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.williamchart)
+    implementation(libs.mpandroidchart)
+
 }
