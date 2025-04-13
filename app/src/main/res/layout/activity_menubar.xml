@@ -6,7 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".menubar">
+    <com.github.mikephil.charting.charts.HorizontalBarChart
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="140dp"
+        android:id="@+id/statusBars"
+        android:layout_width="390dp"/>
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="409dp"

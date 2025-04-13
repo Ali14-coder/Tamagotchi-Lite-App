@@ -1,11 +1,19 @@
 package vcmsa.projects.tamagotchi
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.github.mikephil.charting.charts.HorizontalBarChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 private val FragInit = FragmentDisplay()
@@ -14,6 +22,7 @@ private val FragEat = FragmentEat()
 private val FragRead = FragmentRead()
 private val FragPaint = FragmentPaint()
 
+var statusArrayList = arrayListOf<BarEntry>()
 
 class menubar : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +34,32 @@ class menubar : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val barChart: HorizontalBarChart = findViewById(R.id.statusBars)
+
+        statusArrayList = arrayListOf<BarEntry>()
+        statusArrayList.add( BarEntry(2f,10f))
+        statusArrayList.add( BarEntry(3f,20f))
+        statusArrayList.add( BarEntry(4f,5f))
+        statusArrayList.add( BarEntry(5f,15f))
+
+        val barDataSet = BarDataSet(statusArrayList, "Current Health")
+        val barData = BarData(barDataSet)
+
+        barChart.data = barData
+
+        // Set color
+        barDataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
+
+        // Text color
+        barDataSet.valueTextColor = Color.BLACK
+
+        // Text size
+        barDataSet.valueTextSize = 16f
+
+        // Enable description
+        barChart.description.isEnabled = true
+
+
 
         replaceFrag(FragInit)
         val bottomBar = findViewById<BottomNavigationView>(R.id.NavBar)
@@ -51,6 +86,18 @@ class menubar : AppCompatActivity() {
             transaction.replace(R.id.frameLayout,fragment)
             transaction.commit()
         }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val viewModel = ViewModelProvider(this)[FragmentStatusBarsViewModel::class.java]
+
+        when (item.itemId) {
+            R.id.ic_sleep -> viewModel.updateBarsForAction("sleep")
+            R.id.ic_eat   -> viewModel.updateBarsForAction("eat")
+            R.id.ic_read  -> viewModel.updateBarsForAction("read")
+            R.id.ic_paint -> viewModel.updateBarsForAction("paint")
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 
