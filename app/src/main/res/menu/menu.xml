@@ -20,4 +20,10 @@
         android:icon="@drawable/baseline_brush_24"
         android:title="Paint"/>
 
+    <item
+        android:id="@+id/ic_init"
+        android:icon="@drawable/baseline_brush_24"
+        android:title="Home"
+        android:visible="false" />
+
 </menu>

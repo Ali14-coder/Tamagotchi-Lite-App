@@ -25,16 +25,21 @@ class menubar : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         replaceFrag(FragInit)
         val bottomBar = findViewById<BottomNavigationView>(R.id.NavBar)
         bottomBar.setOnItemSelectedListener{
             when (it.itemId){
-               // R.id.ic_init->replaceFrag(FragInit)
                 R.id.ic_sleep->replaceFrag(FragSleep)
                 R.id.ic_paint->replaceFrag(FragPaint)
                 R.id.ic_eat->replaceFrag(FragEat)
                 R.id.ic_read->replaceFrag(FragRead)
+//                if ()
+//                {
+//                    R.id.ic_init->replaceFrag(FragInit)
+//                }
             }
+
             true
         }
     }
