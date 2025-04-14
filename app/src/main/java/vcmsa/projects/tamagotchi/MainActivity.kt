@@ -29,16 +29,10 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
-
         val intent = Intent(this,menubar::class.java)
         startActivity(intent)
 
 
     }
-private fun barStatusStructure()
-{
-}
-
 
 }

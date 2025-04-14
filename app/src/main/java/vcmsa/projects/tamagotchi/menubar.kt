@@ -25,16 +25,22 @@ private val FragPaint = FragmentPaint()
 var statusArrayList = arrayListOf<BarEntry>()
 
 class menubar : AppCompatActivity() {
+    private lateinit var barChart: HorizontalBarChart
+    private lateinit var statusArrayList: ArrayList<BarEntry>
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_menubar)
+        barChart = findViewById(R.id.statusBars)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val barChart: HorizontalBarChart = findViewById(R.id.statusBars)
+        //val barChart: HorizontalBarChart = findViewById(R.id.statusBars)
 
         statusArrayList = arrayListOf<BarEntry>()
         statusArrayList.add( BarEntry(2f,10f))
@@ -42,63 +48,81 @@ class menubar : AppCompatActivity() {
         statusArrayList.add( BarEntry(4f,5f))
         statusArrayList.add( BarEntry(5f,15f))
 
-        val barDataSet = BarDataSet(statusArrayList, "Current Health")
-        val barData = BarData(barDataSet)
+        statusArrayList = arrayListOf(
+            BarEntry(1f, 10f), // sleep
+            BarEntry(2f, 15f), // eat
+            BarEntry(3f, 20f), // read
+            BarEntry(4f, 25f)  // paint
+        )
+        updateBarChart()
 
-        barChart.data = barData
-
-        // Set color
-        barDataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
-
-        // Text color
-        barDataSet.valueTextColor = Color.BLACK
-
-        // Text size
-        barDataSet.valueTextSize = 16f
-
-        // Enable description
-        barChart.description.isEnabled = true
-
-
-
-        replaceFrag(FragInit)
-        val bottomBar = findViewById<BottomNavigationView>(R.id.NavBar)
-        bottomBar.setOnItemSelectedListener{
-            when (it.itemId){
-                R.id.ic_sleep->replaceFrag(FragSleep)
-                R.id.ic_paint->replaceFrag(FragPaint)
-                R.id.ic_eat->replaceFrag(FragEat)
-                R.id.ic_read->replaceFrag(FragRead)
-//                if ()
-//                {
-//                    R.id.ic_init->replaceFrag(FragInit)
-//                }
+        val bottomNav = findViewById<BottomNavigationView>(R.id.NavBar)
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.ic_sleep -> modifyBarValue(0, 2f) // increase sleep
+                R.id.ic_eat -> modifyBarValue(1, -2f)  // decrease eat
+                R.id.ic_read -> modifyBarValue(2, 2f)  // increase read
+                R.id.ic_paint -> modifyBarValue(3, -2f) // decrease paint
             }
-
             true
         }
+
+        replaceFrag(FragInit)
+      //  val bottomBar = findViewById<BottomNavigationView>(R.id.NavBar)
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.ic_sleep -> {
+                    modifyBarValue(0, 2f)
+                    replaceFrag(FragSleep)
+                }
+                R.id.ic_eat -> {
+                    modifyBarValue(1, -2f)
+                    replaceFrag(FragEat)
+                }
+                R.id.ic_read -> {
+                    modifyBarValue(2, 2f)
+                    replaceFrag(FragRead)
+                }
+                R.id.ic_paint -> {
+                    modifyBarValue(3, -2f)
+                    replaceFrag(FragPaint)
+                }
+            }
+            true
+        }
+
     }
 
-    private fun replaceFrag(fragment: Fragment)
-    {
-        if(fragment!=null){
+    private fun replaceFrag(fragment: Fragment) {
+        if (fragment != null) {
             val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frameLayout,fragment)
+            transaction.replace(R.id.frameLayout, fragment)
             transaction.commit()
         }
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val viewModel = ViewModelProvider(this)[FragmentStatusBarsViewModel::class.java]
 
-        when (item.itemId) {
-            R.id.ic_sleep -> viewModel.updateBarsForAction("sleep")
-            R.id.ic_eat   -> viewModel.updateBarsForAction("eat")
-            R.id.ic_read  -> viewModel.updateBarsForAction("read")
-            R.id.ic_paint -> viewModel.updateBarsForAction("paint")
-        }
+    private fun updateBarChart() {
+        val barDataSet = BarDataSet(statusArrayList, "Status")
+        barDataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
+        barDataSet.valueTextColor = Color.BLACK
+        barDataSet.valueTextSize = 16f
 
-        return super.onOptionsItemSelected(item)
+        val barData = BarData(barDataSet)
+        barChart.data = barData
+        barChart.setFitBars(true)
+        barChart.invalidate() // Refresh the chart
     }
 
 
+    private fun modifyBarValue(index: Int, change: Float) {
+        if (index in statusArrayList.indices) {
+            val original = statusArrayList[index]
+            val newValue = original.y + change
+            statusArrayList[index] =
+                BarEntry(original.x, newValue.coerceAtLeast(0f)) // avoid negative
+            updateBarChart()
+        }
+    }
+
 }
+
